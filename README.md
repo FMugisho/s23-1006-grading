@@ -33,7 +33,7 @@ Replace `script_name.py` with the actual filename of your script, and provide th
 Example:
 
 ```sh
-python canvas_grade_uploader.py --access-token abcd1234 --course-id 12345 --assignment-id 67890 --input-file-path group_grades.csv --is-group
+python main.py --access-token abcd1234 --course-id 12345 --assignment-id 67890 --input-file-path group_grades.csv --is-group
 ```
 
 ## CSV File Format
