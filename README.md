@@ -17,8 +17,7 @@ Make sure you have Python 3.6 or higher installed.
    - Navigate to the assignment on Courseworks/Canvas.
    - Look at the URL in your browser's address bar. It should have the following format: `https://<your_canvas_domain>/courses/<course_id>/assignments/<assignment_id>`
    - Copy the `<course_id>` and `<assignment_id>` values.
-   - For Columbia, the canvas domain is:
-`https://courseworks2.columbia.edu/courses/<course_id>/assignments/<assignment_id>`
+   - Columbia's canvas domain is `courseworks2.columbia.edu`
 
 3. Prepare a CSV file with the required format:
    - For group assignments, the CSV file should have the following fields: `Group ID, Grades, Comments`.
