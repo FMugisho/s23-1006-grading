@@ -8,15 +8,17 @@ Make sure you have Python 3.6 or higher installed.
 
 ## Usage
 
-1. Set up an access token on Canvas:
-   - Log in to Canvas and navigate to your "Account" settings.
+1. Set up an access token on Courseworks/Canvas:
+   - Log in to Courseworks/Canvas and navigate to your "Account" settings.
    - Click "New Access Token" and provide a name and expiration date for the token.
    - Copy the generated access token.
 
-2. Find the course ID and assignment ID on Canvas:
-   - Navigate to the assignment on Canvas.
+2. Find the course ID and assignment ID on Courseworks/Canvas:
+   - Navigate to the assignment on Courseworks/Canvas.
    - Look at the URL in your browser's address bar. It should have the following format: `https://<your_canvas_domain>/courses/<course_id>/assignments/<assignment_id>`
    - Copy the `<course_id>` and `<assignment_id>` values.
+   - For Columbia, the canvas domain is:
+`https://courseworks2.columbia.edu/courses/<course_id>/assignments/<assignment_id>`
 
 3. Prepare a CSV file with the required format:
    - For group assignments, the CSV file should have the following fields: `Group ID, Grades, Comments`.
