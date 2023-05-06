@@ -19,11 +19,22 @@ submission_url = f"{api_url}/courses/{course_id}/assignments/{assignment_id}/sub
 def parse_arguments():
     global access_token, course_id, assignment_id, input_file_path, is_group
     parser = argparse.ArgumentParser(description="Update grades on Canvas.")
-    parser.add_argument("-t", "--access-token", required=True, help="Canvas API access token.")
+    parser.add_argument(
+        "-t", "--access-token", required=True, help="Canvas API access token."
+    )
     parser.add_argument("-c", "--course-id", required=True, help="Canvas course ID.")
-    parser.add_argument("-a", "--assignment-id", required=True, help="Canvas assignment ID.")
-    parser.add_argument("-f", "--input-file-path", required=True, help="Path to input CSV file.")
-    parser.add_argument("-g", "--is-group", action="store_true", help="Indicates whether the assignment was done in group or not.")
+    parser.add_argument(
+        "-a", "--assignment-id", required=True, help="Canvas assignment ID."
+    )
+    parser.add_argument(
+        "-f", "--input-file-path", required=True, help="Path to input CSV file."
+    )
+    parser.add_argument(
+        "-g",
+        "--is-group",
+        action="store_true",
+        help="Indicates whether the assignment was done in group or not.",
+    )
 
     args = parser.parse_args()
     access_token = args.access_token
@@ -46,20 +57,31 @@ def validate_config():
     if not input_file_path:
         raise ValueError("Missing input file path! It cannot be empty.")
     if not isinstance(is_group, bool):
-        raise ValueError("Invalid value for is_group! It should be True or False to indicate whether the assignment was done in group or not.")
+        raise ValueError(
+            "Invalid value for is_group! It should be True or False to indicate whether the assignment was done in group or not."
+        )
     if not Path(input_file_path).is_file():
         raise ValueError("The specified file does not exist.")
 
+
 def validate_csv(reader, is_group: bool):
     headers = next(reader)
-    required_headers = ["Group ID", "Grades", "Comments"] if is_group else ["Student ID", "Grades", "Comments"]
+    required_headers = (
+        ["Group ID", "Grades", "Comments"]
+        if is_group
+        else ["Student ID", "Grades", "Comments"]
+    )
 
     if headers != required_headers:
-        raise ValueError(f"Invalid CSV format. Expected headers: {', '.join(required_headers)}")
+        raise ValueError(
+            f"Invalid CSV format. Expected headers: {', '.join(required_headers)}"
+        )
 
     for row_number, row in enumerate(reader, start=2):
         if len(row) != len(required_headers) or any(cell == "" for cell in row):
-            raise ValueError(f"Invalid CSV format. Null values found in row {row_number}.")
+            raise ValueError(
+                f"Invalid CSV format. Null values found in row {row_number}."
+            )
 
 
 def get_group_members(group_id: str) -> List[str]:
@@ -75,15 +97,19 @@ def process_individual(reader):
             student_id: {
                 "posted_grade": grade,
                 "text_comment": comment.replace(";", " "),
-                "group_comment": False
+                "group_comment": False,
             }
         }
-        response = requests.post(submission_url, json={"grade_data": grade_data}, headers=headers)
+        response = requests.post(
+            submission_url, json={"grade_data": grade_data}, headers=headers
+        )
         if response.status_code != 200:
             sys.stderr.write(f"Unable to post grades because {response.text}\n")
             sys.exit(1)
         else:
-            sys.stdout.write(f"Uploaded grades for {student_id} who got {grade}% and comment {comment}\n")
+            sys.stdout.write(
+                f"Uploaded grades for {student_id} who got {grade}% and comment {comment}\n"
+            )
 
 
 def process_group(reader):
@@ -94,15 +120,19 @@ def process_group(reader):
                 str(member_id): {
                     "posted_grade": int(grade),
                     "text_comment": comment.replace(";", " "),
-                    "group_comment": True
+                    "group_comment": True,
                 }
             }
-            response = requests.post(submission_url, json={"grade_data": grade_data}, headers=headers)
+            response = requests.post(
+                submission_url, json={"grade_data": grade_data}, headers=headers
+            )
             if response.status_code != 200:
                 sys.stderr.write(f"Unable to post grades because {response.text}")
                 sys.exit(1)
             else:
-                sys.stdout.write(f"Uploaded grades for {member_id} from group {group_no} who got {grade}% and comment {comment}\n")
+                sys.stdout.write(
+                    f"Uploaded grades for {member_id} from group {group_no} who got {grade}% and comment {comment}\n"
+                )
 
 
 def main():
