@@ -13,11 +13,16 @@ Make sure you have Python 3.6 or higher installed.
    - Click "New Access Token" and provide a name and expiration date for the token.
    - Copy the generated access token.
 
-2. Prepare a CSV file with the required format:
+2. Find the course ID and assignment ID on Canvas:
+   - Navigate to the assignment on Canvas.
+   - Look at the URL in your browser's address bar. It should have the following format: `https://<your_canvas_domain>/courses/<course_id>/assignments/<assignment_id>`
+   - Copy the `<course_id>` and `<assignment_id>` values.
+
+3. Prepare a CSV file with the required format:
    - For group assignments, the CSV file should have the following fields: `Group ID, Grades, Comments`.
    - For individual assignments, the CSV file should have the following fields: `Student ID, Grades, Comments`.
 
-3. Run the script with the following command line arguments:
+4. Run the script with the following command line arguments:
 
 ```sh
 python script_name.py --access-token your_access_token --course-id your_course_id --assignment-id your_assignment_id --input-file-path your_input_file_path [--is-group]
@@ -54,6 +59,8 @@ Student ID, Grades, Comments
 234567, 88, Good effort, but there's room for improvement.
 ...
 ```
+## Note
+This tool can work for any course at Columbia that uses Courseworks.
 
 ## License
 
