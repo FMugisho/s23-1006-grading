@@ -113,7 +113,7 @@ def process_individual(reader):
 
 
 def process_group(reader):
-    for group_no, group_id, grade, comment in reader:
+    for group_id, grade, comment in reader:
         member_ids = get_group_members(group_id)
         for member_id in member_ids:
             grade_data = {
